@@ -1,6 +1,6 @@
 import NextError from 'next/error';
 import { useRouter } from 'next/router';
-import { GetStaticPaths, GetStaticPropsContext } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import { createServerSideHelpers } from '@trpc/react-query/server';
 
 import { trpc } from '@/utils/trpc';
@@ -13,7 +13,7 @@ import { loadNamespaceAsync } from '@/i18n/i18n-util.async';
 import { loadedLocales } from '@/i18n/i18n-util';
 import { PostItem } from '@/components/post/PostItem';
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export const getStaticProps: GetStaticProps = async (context) => {
   const locale = context.locale as Locales;
   await loadNamespaceAsync(locale, 'postPage');
   const ssg = createServerSideHelpers({
@@ -34,7 +34,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     },
     revalidate: 1,
   };
-}
+};
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await prisma.post.findMany({

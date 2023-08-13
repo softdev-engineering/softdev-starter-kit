@@ -18,4 +18,4 @@ const nextConfig = withSuperjson()({
 });
 
 module.exports =
-  process.env.NODE_ENV === 'production' ? withPWA(nextConfig) : nextConfig;
+  process.env.NODE_ENV !== 'development' ? withPWA(nextConfig) : nextConfig;

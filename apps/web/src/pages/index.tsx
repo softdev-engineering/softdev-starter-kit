@@ -1,4 +1,4 @@
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
+import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { Fragment } from 'react';
 import { Button, TextInput, Textarea } from 'ui';
 
@@ -10,7 +10,7 @@ import { Locales } from '@/i18n/i18n-types';
 import { useI18nContext } from '@/i18n/i18n-react';
 import { loadedLocales } from '@/i18n/i18n-util';
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export const getStaticProps: GetStaticProps = async (context) => {
   const locale = context.locale as Locales;
   await loadNamespaceAsync(locale, 'homePage');
 
@@ -21,8 +21,9 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         dictionary: loadedLocales[locale],
       },
     },
+    revalidate: 1,
   };
-}
+};
 
 const IndexPage: NextPageWithLayout<
   InferGetStaticPropsType<typeof getStaticProps>

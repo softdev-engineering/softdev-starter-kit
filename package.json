@@ -8,7 +8,9 @@
     "start": "turbo start",
     "dev": "turbo dev",
     "lint": "turbo lint",
+    "lint:fix": "turbo run lint:fix",
     "clean": "turbo clean",
+    "reset": "find . -type dir -name node_modules | xargs rm -rf && rm -rf pnpm-lock.yaml",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
