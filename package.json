@@ -1,7 +1,11 @@
 {
+  "name": "softdev-starter-kit",
+  "version": "1.0.0",
+  "description": "",
   "private": true,
   "scripts": {
     "build": "turbo build",
+    "start": "turbo start",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "clean": "turbo clean",
