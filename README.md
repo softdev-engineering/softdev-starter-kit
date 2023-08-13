@@ -1,13 +1,13 @@
-# Turborepo Tailwind CSS starter
+# Softdev starter kit
 
-This is an official starter Turborepo.
+This is an official Softdev Engineering starter kit.
 
 ## Using this example
 
 Run the following command:
 
 ```sh
-npx create-turbo@latest -e with-tailwind
+npx @softdev-engineering/starter-kit@latest [project-name]
 ```
 
 ## What's inside?
@@ -16,9 +16,8 @@ This Turborepo includes the following packages/apps:
 
 ### Apps and Packages
 
-- `docs`: a [Next.js](https://nextjs.org/) app with [Tailwind CSS](https://tailwindcss.com/)
-- `web`: another [Next.js](https://nextjs.org/) app with [Tailwind CSS](https://tailwindcss.com/)
-- `ui`: a stub React component library with [Tailwind CSS](https://tailwindcss.com/) shared by both `web` and `docs` applications
+- `web`: another [Next.js](https://nextjs.org/) app with [Tailwind CSS](https://tailwindcss.com/), [daisyUI](https://daisyui.com/), [CVA](https://cva.style/docs), [typesafe-i18n](https://github.com/ivanhofer/typesafe-i18n), [tRPC](https://trpc.io/) and [Prisma](https://www.prisma.io/)
+- `ui`: a stub React component library with [Tailwind CSS](https://tailwindcss.com/), [daisyUI](https://daisyui.com/) and [CVA](https://cva.style/docs) shared by both `web` and `docs` applications
 - `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 - `tsconfig`: `tsconfig.json`s used throughout the monorepo
 
@@ -45,6 +44,12 @@ For example, in [tailwind.config.js](packages/tailwind-config/tailwind.config.js
 
 This Turborepo has some additional tools already setup for you:
 
+- [Next.js](https://nextjs.org/) for web framework
+- [daisyUI](https://daisyui.com/) to design system tool
+- [CVA](https://cva.style/docs) for component variants manager
+- [typesafe-i18n](https://github.com/ivanhofer/typesafe-i18n) for localization
+- [tRPC](https://trpc.io/) for backend API
+- [Prisma](https://www.prisma.io/) for database ORM
 - [Tailwind CSS](https://tailwindcss.com/) for styles
 - [TypeScript](https://www.typescriptlang.org/) for static type checking
 - [ESLint](https://eslint.org/) for code linting

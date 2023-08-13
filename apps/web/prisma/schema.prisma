@@ -1,0 +1,85 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider  = "postgres"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Post {
+  id    String @id @default(uuid())
+  title String
+  text  String
+
+  // To return `Date`s intact through the API we use transformers
+  // https://trpc.io/docs/data-transformers
+  // This is unique so it can be used for cursor-based pagination
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Users {
+  id                  String               @id @default(uuid())
+  email               String               @unique
+  fullName            String
+  country             String
+  birthDate           DateTime
+  experiencesRatings  ExperienceRatings[]
+  experiencesComments ExperienceComments[]
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @default(now()) @updatedAt
+}
+
+model Experiences {
+  id               String                 @id @default(uuid())
+  name             String
+  shortDescription String
+  longDescription  String
+  itinerary        String
+  duration         String
+  meetingPoint     String
+  destinationPoint String
+  multimedia       String[]
+  departures       ExperienceDepartures[]
+  comments         ExperienceComments[]
+  rating           ExperienceRatings[]
+  createdAt        DateTime               @default(now())
+  updatedAt        DateTime               @default(now()) @updatedAt
+}
+
+model ExperienceDepartures {
+  id           String      @id @default(uuid())
+  experience   Experiences @relation(fields: [experienceId], references: [id])
+  experienceId String
+  date         DateTime
+  price        Float
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @default(now()) @updatedAt
+}
+
+model ExperienceComments {
+  id           String      @id @default(uuid())
+  user         Users       @relation(fields: [userId], references: [id])
+  userId       String
+  experience   Experiences @relation(fields: [experienceId], references: [id])
+  experienceId String
+  text         String
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @default(now()) @updatedAt
+}
+
+model ExperienceRatings {
+  id           String      @id @default(uuid())
+  user         Users       @relation(fields: [userId], references: [id])
+  userId       String
+  experience   Experiences @relation(fields: [experienceId], references: [id])
+  experienceId String
+  ratingValue  Int
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @default(now()) @updatedAt
+}

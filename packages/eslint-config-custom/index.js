@@ -8,4 +8,5 @@ module.exports = {
       presets: [require.resolve("next/babel")],
     },
   },
+  ignorePatterns: ["node_modules", ".next", "src/i18n/i18n-*"],
 };

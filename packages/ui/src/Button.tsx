@@ -1,16 +1,99 @@
 import * as React from "react";
+import { VariantProps, cva } from "class-variance-authority";
 
-export const Button = () => {
-  return (
-    <div className="rounded-md ">
-      <a href="https://turbo.build/repo/docs">
-        <div className="ui-flex ui-w-full ui-items-center ui-justify-center ui-rounded-md ui-border ui-border-transparent ui-px-8 ui-py-3 ui-text-base ui-font-medium ui-no-underline ui-bg-white ui-text-black hover:ui-bg-gray-300 md:ui-py-3 md:ui-px-10 md:ui-text-lg md:ui-leading-6">
-          Read the docs
-          <span className="ui-ml-2 ui-bg-gradient-to-r ui-from-brandred ui-to-brandblue ui-bg-clip-text ui-text-transparent">
-            →
-          </span>
-        </div>
-      </a>
-    </div>
-  );
-};
+const buttonStyles = cva(["btn normal-case"], {
+  variants: {
+    square: { true: "btn-square" },
+    fullWidth: { true: "w-full" },
+    active: { true: "btn-active" },
+    underline: { true: "underline", false: "no-underline" },
+    outline: { true: "btn-outline" },
+    appearance: {
+      default: "",
+      primary: "btn-primary",
+      secondary: "btn-secondary",
+      accent: "btn-accent",
+      neutral: "btn-neutral",
+      ghost: "btn-ghost",
+      info: "btn-info",
+      success: "btn-success",
+      warning: "btn-warning",
+      error: "btn-error",
+      link: "btn-link btn-sm text-current px-1",
+    },
+    size: {
+      lg: "btn-lg",
+      md: "",
+      sm: "btn-sm",
+      xs: "btn-xs",
+    },
+    fontSize: {
+      "2xl": "text-2xl",
+      xl: "text-xl",
+      lg: "text-lg",
+      md: "text-base",
+      sm: "text-sm",
+      xs: "text-xs",
+    },
+    fontWeight: {
+      thin: "font-thin",
+      "extra-light": "font-extralight",
+      light: "font-light",
+      normal: "font-normal",
+      medium: "font-medium",
+      semibold: "font-semibold",
+      bold: "font-bold",
+      extrabold: "font-extrabold",
+      black: "font-black",
+    },
+  },
+  defaultVariants: {
+    appearance: "default",
+    size: "md",
+    fontSize: "md",
+    fontWeight: "semibold",
+    underline: false,
+  },
+});
+
+export interface ButtonProps
+  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "color">,
+    VariantProps<typeof buttonStyles> {
+  href?: string;
+}
+
+function ButtonComponent(
+  {
+    href,
+    fullWidth,
+    square,
+    active,
+    underline,
+    outline,
+    appearance,
+    size,
+    fontSize,
+    fontWeight,
+    ...props
+  }: ButtonProps,
+  ref: React.Ref<HTMLButtonElement>
+) {
+  const mappedProps = {
+    className: buttonStyles({
+      fullWidth,
+      square,
+      active,
+      underline,
+      outline,
+      appearance,
+      size,
+      fontSize,
+      fontWeight,
+    }),
+    ...props,
+  };
+  if (href) return <a href={href} {...mappedProps} />;
+  return <button ref={ref} {...mappedProps} />;
+}
+
+export const Button = React.forwardRef(ButtonComponent);

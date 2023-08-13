@@ -4,11 +4,16 @@
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
+      "env": ["VERCEL_URL", "RENDER_INTERNAL_HOSTNAME", "PORT"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
     "lint": {},
     "check-types": {},
     "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "start": {
       "cache": false,
       "persistent": true
     },
